@@ -1,0 +1,5 @@
+# Ignore files and directories that should not be included in the Docker image
+
+node_modules
+dist
+.env
