@@ -13,7 +13,7 @@ export class ReportsController {
         c.name, 
         c.email, 
         c.country, 
-        o.total_amount 
+        sum(o.total_amount) as total_amount
       from customers as c
       inner join (
         select 
@@ -24,7 +24,8 @@ export class ReportsController {
         inner join orders as b on b.order_id = a.order_id
         group by a.order_id, b.customer_id
       ) as o on o.customer_id = c.customer_id
-      order by o.total_amount desc;
+      group by c.customer_id
+      order by total_amount desc;
     `;
     return this.mysqlService.query(sql);
   }
